@@ -1,5 +1,6 @@
 models:
   - name: order_items
+    description: Orders overview data mart, offering key details for each unique orders.
     columns:
       - name: order_item_id
         data_tests:
