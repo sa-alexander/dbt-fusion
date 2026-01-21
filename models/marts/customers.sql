@@ -1,3 +1,5 @@
+{{ config(access = "public") }}
+
 with
 
 customers as (
