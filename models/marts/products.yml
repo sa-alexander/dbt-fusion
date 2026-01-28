@@ -1,0 +1,26 @@
+models:
+- name: products
+  description: This model provides detailed information about products, including
+    their identification, type, description, pricing, and categorization as food or
+    drink items. It serves as a comprehensive reference for product-related data,
+    facilitating inventory management and sales analysis.
+  columns:
+  - name: product_id
+    description: A unique identifier for each product.
+    data_tests:
+      - unique
+      - not_null
+  - name: product_name
+    description: The name of the product.
+    data_tests:
+      - not_null
+  - name: product_type
+    description: The category or classification of the product.
+  - name: product_description
+    description: A detailed description of the product.
+  - name: product_price
+    description: The price of the product.
+  - name: is_food_item
+    description: Indicates whether the product is a food item.
+  - name: is_drink_item
+    description: Indicates whether the product is a drink item.
