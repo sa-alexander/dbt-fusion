@@ -1,23 +1,13 @@
 with
+    products as (
 
-products as (
+        select 
+            PRODUCT_ID, PRODUCT_NAME, PRODUCT_TYPE, PRODUCT_DESCRIPTION, PRODUCT_PRICE, IS_FOOD_ITEM, IS_DRINK_ITEM
+        from {{ ref('stg_products') }}
 
-    select * from {{ ref('stg_products') }}
-    select 
-        product_id,
-        product_name,
-        product_category,
-        price,
-        created_at
-    from {{ ref('stg_products') }}
+    )
 
-)
 
-select * from products
 select 
-    product_id,
-    product_name,
-    product_category,
-    price,
-    created_at
+PRODUCT_ID, PRODUCT_NAME, PRODUCT_TYPE, PRODUCT_DESCRIPTION, PRODUCT_PRICE, IS_FOOD_ITEM, IS_DRINK_ITEM
 from products
