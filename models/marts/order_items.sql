@@ -13,7 +13,7 @@ order_items as (
 orders as (
 
     select * from {{ ref('stg_orders') }}
-    where 1=1
+
 ),
 
 products as (
