@@ -10,3 +10,5 @@ To get started:
 
 > [!NOTE]
 > If you're brand-new to dbt, we recommend starting with the [dbt Learn](https://learn.getdbt.com/) platform. It's a free, interactive way to learn dbt, and it's a great way to get started if you're new to the tool.
+
+Testing branching functionality
