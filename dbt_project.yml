@@ -4,7 +4,7 @@ profile: jaffle_shop
 
 dbt-cloud:
   project-id: 430628
-  defer-env-id: 369849
+  defer-env-id: 417792
 
 seed-paths: ["seeds"]
 model-paths: ["models"]
