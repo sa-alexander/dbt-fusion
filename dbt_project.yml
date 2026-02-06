@@ -3,7 +3,7 @@ name: jaffle_shop
 profile: jaffle_shop
 
 dbt-cloud:
-  project-id: 430628
+  project-id: 492130
   defer-env-id: 417792
 
 seed-paths: ["seeds"]
