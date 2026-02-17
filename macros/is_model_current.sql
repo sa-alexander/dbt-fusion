@@ -8,8 +8,8 @@
         {{return(true)}}
     
     {# why does this not work? #}
-    {% elif meta_config.get('deprecation_date') 
-       and meta_config.get('deprecation_date') < '2025-08-01' %}
+    {% elif meta_config.meta_get('deprecation_date') 
+       and meta_config.meta_get('deprecation_date') < '2025-08-01' %}
 
         {{return(false)}}
         
