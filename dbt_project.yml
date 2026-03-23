@@ -23,8 +23,10 @@ models:
     +freshness: {}
     staging:
       +materialized: view
+      +static_analysis: strict
     marts:
       +materialized: table
+      +static_analysis: strict
       # when there is new upstream data, AND the last build was more than 4 hours ago
       +freshness: {}
       +meta:
