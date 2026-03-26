@@ -30,7 +30,7 @@ models:
       - name: PRODUCT_PRICE
         data_type: NUMBER(16,2)      
       - name: SUPPLY_COST
-        data_type: NUMBER(16,2)      
+        data_type: NUMBER(28,2)      
 
     semantic_model:
       enabled: true
