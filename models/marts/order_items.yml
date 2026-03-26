@@ -28,9 +28,9 @@ models:
       - name: PRODUCT_NAME
         data_type: varchar(250)
       - name: PRODUCT_PRICE
-        data_type: INT      
+        data_type: NUMBER(16,2)      
       - name: SUPPLY_COST
-        data_type: INT      
+        data_type: NUMBER(16,2)      
 
 unit_tests:
   - name: test_supply_costs_sum_correctly
