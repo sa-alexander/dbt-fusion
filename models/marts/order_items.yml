@@ -6,15 +6,31 @@ models:
     description: Orders overview data mart, offering key details for each unique orders.
     columns:
       - name: order_item_id
+        data_type: varchar(250)      
         data_tests:
           - not_null
           - unique
       - name: order_id
+        data_type: varchar(250)      
         data_tests:
           - relationships:
               arguments:
                 to: ref('orders')
                 field: order_id
+      - name: IS_DRINK_ITEM
+        data_type: BOOLEAN
+      - name: IS_FOOD_ITEM
+        data_type: BOOLEAN      
+      - name: ORDER_DATE
+        data_type: DATE         
+      - name: PRODUCT_ID
+        data_type: varchar(250)      
+      - name: PRODUCT_NAME
+        data_type: varchar(250)
+      - name: PRODUCT_PRICE
+        data_type: INT      
+      - name: SUPPLY_COST
+        data_type: INT      
 
 unit_tests:
   - name: test_supply_costs_sum_correctly
