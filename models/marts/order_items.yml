@@ -32,6 +32,57 @@ models:
       - name: SUPPLY_COST
         data_type: NUMBER(16,2)      
 
+    semantic_model:
+      enabled: true
+      name: order_items
+    agg_time_dimension: order_date
+    metrics:
+      # Simple metrics
+      - name: total_expense
+        description: The total expense for the business, aggregated from supplier costs
+        type: simple
+        label: Total Expenses
+        agg: sum
+        expr: supplier_cost
+      - name: total_supplier_revenue
+        description: The total net revenue by supplier after discounts and taxes
+        type: simple
+        label: Total Supplier Revenue
+        agg: sum
+        expr: net_item_sales_amount
+      - name: total_supplier_gross_revenue
+        description: The total gross revenue by supplier before discounts and taxes
+        type: simple
+        label: Total Supplier Gross Revenue
+        agg: sum
+        expr: gross_item_sales_amount
+      - name: total_items_sold
+        description: The total number of items sold across all orders
+        type: simple
+        label: Total Items Sold
+        agg: sum
+        expr: quantity
+      - name: total_gross_sales
+        description: The total gross sales amount before discounts and taxes
+        type: simple
+        label: Total Gross Sales
+        agg: sum
+        expr: gross_item_sales_amount
+      - name: average_gross_sales
+        description: The average gross sales amount per order item
+        type: simple
+        label: Average Gross Sales
+        agg: average
+        expr: gross_item_sales_amount
+      # Derived metrics
+      - name: average_items_per_sale
+        description: The average number of items per sale, calculated as total items sold divided by total gross sales
+        type: ratio
+        label: Average Items per Sale
+        numerator: total_items_sold
+        denominator: total_gross_sales
+
+
 unit_tests:
   - name: test_supply_costs_sum_correctly
     description: "Test that the supply costs sum correctly by product."
