@@ -32,6 +32,34 @@ models:
       - name: is_drink_order
         description: A boolean indicating if this order included any drink items.
 
+    semantic_model:
+      enabled: true
+      name: orders
+    agg_time_dimension: order_date
+    metrics:
+      # Simple metrics - these create measures and metrics on this semantic model
+      - name: total_revenue
+        description: The total revenue for the business, aggregated from gross item sales amounts
+        type: simple
+        label: Total Revenue
+        agg: sum
+        expr: order_total
+      - name: total_customers
+        description: The total count of unique customers for the business
+        type: simple
+        label: Total Customers
+        agg: count_distinct
+        expr: customer_id
+      # Ratio metric
+      - name: average_revenue_per_customer
+        description: The average revenue per customer, calculated as total revenue divided by total customers
+        type: ratio
+        label: Average Revenue per Customer
+        numerator: total_revenue
+        denominator: total_customers
+
+
+
 unit_tests:
   - name: test_order_items_compute_to_bools_correctly
     description: "Test that the counts of drinks and food orders convert to booleans properly."
