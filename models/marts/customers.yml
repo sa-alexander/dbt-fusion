@@ -4,7 +4,7 @@ models:
     data_tests:
       - dbt_utils.expression_is_true:
           arguments:
-            expression: "lifetime_spend_pretax + lifetime_tax_paid = lifetime_spend"
+            expression: "lifetime_spend_pretax + lifetime_tax_paid = lifetime_spend_total"
     columns:
       - name: customer_id
         description: The unique key of the orders mart.
@@ -23,7 +23,7 @@ models:
         description: The sum of all the pre-tax subtotals of every order a customer has placed.
       - name: lifetime_tax_paid
         description: The sum of all the tax portion of every order a customer has placed.
-      - name: lifetime_spend
+      - name: lifetime_spend_total
         description: The sum of all the order totals (including tax) that a customer has ever placed.
       - name: customer_type
         description: Options are 'new' or 'returning', indicating if a customer has ordered more than once or has only placed their first order to date.
