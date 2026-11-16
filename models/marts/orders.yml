@@ -11,11 +11,17 @@ models:
     columns:
       - name: order_id
         description: The unique key of the orders mart.
+        entity:
+          type: primary
+          name: sales_order
         data_tests:
           - not_null
           - unique
       - name: customer_id
         description: The foreign key relating to the customer who placed the order.
+        entity:
+          type: foreign
+          name: customer
         data_tests:
           - relationships:
               arguments:
@@ -25,12 +31,21 @@ models:
         description: The total amount of the order in USD including tax.
       - name: order_date
         description: The date the order was placed.
+        granularity: day
+        dimension:
+          type: time
+        data_tests:
+          - not_null
       - name: order_cost
         description: The sum of supply expenses to fulfill the order.
       - name: is_food_order
         description: A boolean indicating if this order included any food items.
+        dimension:
+          type: categorical
       - name: is_drink_order
         description: A boolean indicating if this order included any drink items.
+        dimension:
+          type: categorical
 
     semantic_model:
       enabled: true
@@ -39,7 +54,8 @@ models:
     metrics:
       # Simple metrics - these create measures and metrics on this semantic model
       - name: total_revenue
-        description: The total revenue for the business, aggregated from gross item sales amounts
+        description: Total order value in USD including tax, summed across orders in the selected period and filters.
+
         type: simple
         label: Total Revenue
         agg: sum

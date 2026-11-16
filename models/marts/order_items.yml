@@ -6,12 +6,18 @@ models:
     description: Orders overview data mart, offering key details for each unique orders.
     columns:
       - name: order_item_id
-        data_type: varchar(250)      
+        data_type: varchar(250)
+        entity:
+          type: primary
+          name: order_item
         data_tests:
           - not_null
           - unique
       - name: order_id
-        data_type: varchar(250)      
+        data_type: varchar(250)
+        entity:
+          type: foreign
+          name: sales_order
         data_tests:
           - relationships:
               arguments:
@@ -20,9 +26,14 @@ models:
       - name: IS_DRINK_ITEM
         data_type: BOOLEAN
       - name: IS_FOOD_ITEM
-        data_type: BOOLEAN      
+        data_type: BOOLEAN
       - name: ORDER_DATE
-        data_type: DATE         
+        data_type: DATE
+        granularity: day
+        dimension:
+          type: time
+          name: order_date
+
       - name: PRODUCT_ID
         data_type: varchar(250)      
       - name: PRODUCT_NAME
@@ -37,50 +48,43 @@ models:
       name: order_items
     agg_time_dimension: order_date
     metrics:
-      # Simple metrics
       - name: total_expense
-        description: The total expense for the business, aggregated from supplier costs
+        description: Total supply cost in USD for the items sold, excluding other operating expenses.
         type: simple
-        label: Total Expenses
+        label: Total Supply Expenses
         agg: sum
-        expr: supplier_cost
-      - name: total_supplier_revenue
-        description: The total net revenue by supplier after discounts and taxes
-        type: simple
-        label: Total Supplier Revenue
-        agg: sum
-        expr: net_item_sales_amount
-      - name: total_supplier_gross_revenue
-        description: The total gross revenue by supplier before discounts and taxes
-        type: simple
-        label: Total Supplier Gross Revenue
-        agg: sum
-        expr: gross_item_sales_amount
+        expr: supply_cost
       - name: total_items_sold
-        description: The total number of items sold across all orders
+        description: Number of order-item rows. Each row represents one item sold.
         type: simple
         label: Total Items Sold
-        agg: sum
-        expr: quantity
+        agg: count
+        expr: order_item_id
+      - name: total_orders_with_items
+        description: Distinct orders represented in the selected order items. Product filters restrict this count to orders containing matching items.
+        type: simple
+        label: Orders with Items
+        agg: count_distinct
+        expr: order_id
       - name: total_gross_sales
-        description: The total gross sales amount before discounts and taxes
+        description: Sum of product prices in USD for items sold, before order-level taxes or discounts.
         type: simple
         label: Total Gross Sales
         agg: sum
-        expr: gross_item_sales_amount
+        expr: product_price
       - name: average_gross_sales
-        description: The average gross sales amount per order item
+        description: Average product price in USD per item sold, before order-level taxes or discounts.
         type: simple
-        label: Average Gross Sales
+        label: Average Gross Sales per Item
         agg: average
-        expr: gross_item_sales_amount
-      # Derived metrics
+        expr: product_price
       - name: average_items_per_sale
-        description: The average number of items per sale, calculated as total items sold divided by total gross sales
+        description: Items sold divided by distinct orders containing those items within the selected period and filters.
         type: ratio
         label: Average Items per Sale
         numerator: total_items_sold
-        denominator: total_gross_sales
+        denominator: total_orders_with_items
+
 
 
 unit_tests:
