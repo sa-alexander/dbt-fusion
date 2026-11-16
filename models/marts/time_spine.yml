@@ -1,0 +1,12 @@
+models:
+  - name: time_spine
+    description: A continuous daily calendar from January 1, 2000 through two years ahead of the build date, supporting historical and future Semantic Layer queries.
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        description: Calendar date, with exactly one non-null row per day.
+        granularity: day
+        data_tests:
+          - not_null
+          - unique
